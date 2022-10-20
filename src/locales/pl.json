@@ -1,0 +1,12 @@
+{
+  "home": {
+    "listen": "Posłuchaj świetnej muzyki!"
+  },
+  "song": {
+    "comment_count": "brak komentarzy | {count} komentarz | {count} komentarze | {count} komentarzy"
+  },
+  "register": {
+    "accept": "Akceptuję {0} serwisu Muzyka",
+    "tos": "warunki korzystania z usług "
+  }
+}

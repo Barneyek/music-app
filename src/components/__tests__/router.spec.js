@@ -1,0 +1,26 @@
+import {shallowMount, RouterLinkStub} from "@vue/test-utils";
+import songItem from "@/components/SongItem.vue";
+
+describe("Router", () => {
+  it("renders router link", () => {
+    const song = {
+      docID: "abc",
+    };
+
+    const wrapper = shallowMount(songItem, {
+      props: { song },
+      global: {
+        components: {
+          "router-link": RouterLinkStub,
+        },
+      },
+    });
+
+    expect(wrapper.findComponent(RouterLinkStub).props().to).toEqual({
+      name: 'song',
+      params: {
+        id: song.docID,
+      },
+    });
+  });
+});
