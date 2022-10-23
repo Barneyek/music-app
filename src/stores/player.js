@@ -43,6 +43,7 @@ export default defineStore("player", {
       if (!this.sound.playing) {
         return;
       }
+      // console.log(this.current_song);
 
       if (this.sound.playing()) {
         this.sound.pause();
@@ -66,7 +67,7 @@ export default defineStore("player", {
         return;
       }
 
-      const { x, width } = event.currentTarget.getBoundingClientRect();
+      const {x, width} = event.currentTarget.getBoundingClientRect();
       const clickX = event.clientX - x;
       const percentage = clickX / width;
       const seconds = this.sound.duration() * percentage;

@@ -13,7 +13,7 @@
           id="play-btn"
           type="button"
           class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
-          @click.prevent="!isPlaying ? newSong(song) : toggleAudio()"
+          @click.prevent="playMusic"
         >
           <i
             class="fas"
@@ -62,7 +62,7 @@
               class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded mb-4"
               placeholder="Your comment here..."
             />
-            <ErrorMessage class="text-red-600" name="comment" />
+            <ErrorMessage class="text-red-600" name="comment"/>
             <button
               type="submit"
               class="py-1.5 px-3 rounded text-white bg-green-600 block"
@@ -97,6 +97,7 @@
         <p>{{ comment.content }}</p>
       </li>
     </ul>
+    <app-player/>
   </main>
 </template>
 
@@ -105,6 +106,7 @@ import { songsCollection, auth, commentsCollection } from "@/includes/firebase";
 import { mapState, mapActions } from "pinia";
 import useUserStore from "@/stores/user";
 import usePlayerStore from "@/stores/player";
+import AppPlayer from "@/components/Player.vue";
 
 export default {
   name: "Song",
@@ -120,11 +122,15 @@ export default {
       comment_show_alert: false,
       comment_alert_variant: "bg-blue-500",
       comment_alert_msg: "Proszę czekać. Trwa dodawanie komentarza.",
+      flaga: 0,
     };
+  },
+  components: {
+    AppPlayer,
   },
   computed: {
     ...mapState(useUserStore, ["userLoggedIn"]),
-    ...mapState(usePlayerStore, ["playing", "isPlaying"]),
+    ...mapState(usePlayerStore, ["playing", "isPlaying", "current_song"]),
     sortedComments() {
       return this.comments.slice().sort((a, b) => {
         if (this.sort === "1") {
@@ -135,20 +141,24 @@ export default {
       });
     },
   },
-  async created() {
+  async mounted() {
     const docSnapshot = await songsCollection.doc(this.$route.params.id).get();
     if (!docSnapshot.exists) {
-      this.$router.push({ name: "home" });
+      this.$router.push({name: "home"});
       return;
     }
 
-    const { sort } = this.$route.query;
+    const {sort} = this.$route.query;
     this.sort = sort === "1" || sort === "2" ? sort : "1";
-
     this.song = docSnapshot.data();
+    // console.log("tutaj:", this.song)
     await this.getComments();
   },
   watch: {
+    // song(newValue) {
+    //   console.log("nowe", newValue.modified_name)
+    //
+    // },
     sort(newValue) {
       if (newValue === this.$route.query.sort) {
         return;
@@ -163,7 +173,7 @@ export default {
   },
   methods: {
     ...mapActions(usePlayerStore, ["newSong", "toggleAudio"]),
-    async postComment(values, { resetForm }) {
+    async postComment(values, {resetForm}) {
       this.comment_show_alert = true;
       this.comment_in_submission = true;
       this.comment_alert_variant = "bg-blue-500";
@@ -204,6 +214,13 @@ export default {
           ...doc.data(),
         });
       });
+    },
+    playMusic() {
+      if (this.song.uid !== this.current_song.uid) {
+        this.newSong(this.song);
+      } else {
+        this.toggleAudio();
+      }
     },
   },
 };

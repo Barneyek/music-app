@@ -1,12 +1,10 @@
 <template>
   <app-header />
-
   <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
       <component :is="Component"></component>
     </transition>
   </router-view>
-  <app-player />
   <auth />
 </template>
 
@@ -16,14 +14,12 @@ import Auth from "@/components/Auth.vue";
 import { mapWritableState } from "pinia";
 import useUserStore from "@/stores/user";
 import { auth } from "./includes/firebase";
-import AppPlayer from "@/components/Player.vue";
 
 export default {
   name: "App",
   components: {
     AppHeader,
     Auth,
-    AppPlayer,
   },
   computed: {
     ...mapWritableState(useUserStore, ["userLoggedIn"]),
