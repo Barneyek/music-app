@@ -6,6 +6,7 @@
     </transition>
   </router-view>
   <auth />
+  <app-player v-show="!this.current_song" />
 </template>
 
 <script>
@@ -14,17 +15,20 @@ import Auth from "@/components/Auth.vue";
 import { mapWritableState } from "pinia";
 import useUserStore from "@/stores/user";
 import { auth } from "./includes/firebase";
+import AppPlayer from "@/components/Player.vue";
 
 export default {
   name: "App",
   components: {
     AppHeader,
     Auth,
+    AppPlayer,
   },
   computed: {
     ...mapWritableState(useUserStore, ["userLoggedIn"]),
   },
   created() {
+    console.log("current_song:", this.current_song);
     if (auth.currentUser) {
       this.userLoggedIn = true;
     }
@@ -36,9 +40,11 @@ export default {
 .fade-enter-from {
   opacity: 0;
 }
+
 .fade-enter-active {
   transition: all 0.3s ease-in-out;
 }
+
 .fade-leave-to {
   transition: all 0.3s ease-in-out;
   opacity: 0;

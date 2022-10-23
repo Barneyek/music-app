@@ -97,7 +97,6 @@
         <p>{{ comment.content }}</p>
       </li>
     </ul>
-    <app-player/>
   </main>
 </template>
 
@@ -106,7 +105,6 @@ import { songsCollection, auth, commentsCollection } from "@/includes/firebase";
 import { mapState, mapActions } from "pinia";
 import useUserStore from "@/stores/user";
 import usePlayerStore from "@/stores/player";
-import AppPlayer from "@/components/Player.vue";
 
 export default {
   name: "Song",
@@ -124,9 +122,6 @@ export default {
       comment_alert_msg: "Proszę czekać. Trwa dodawanie komentarza.",
       flaga: 0,
     };
-  },
-  components: {
-    AppPlayer,
   },
   computed: {
     ...mapState(useUserStore, ["userLoggedIn"]),
