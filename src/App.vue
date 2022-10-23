@@ -28,7 +28,6 @@ export default {
     ...mapWritableState(useUserStore, ["userLoggedIn"]),
   },
   created() {
-    console.log("current_song:", this.current_song);
     if (auth.currentUser) {
       this.userLoggedIn = true;
     }

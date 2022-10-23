@@ -4,7 +4,7 @@
     <section class="w-full mb-8 py-14 text-center text-white relative">
       <div
         class="absolute inset-0 w-full h-full box-border bg-contain music-bg"
-        :class="{'animation-paused': !playing }"
+        :class="{ 'animation-paused': !playing }"
         style="background-image: url(/assets/img/song-header.png)"
       ></div>
       <div class="container mx-auto flex items-center">
@@ -16,7 +16,12 @@
           @click.prevent="playMusic"
         >
           <i
-            class="fas"
+            v-if="this.song.uid !== this.current_song.uid"
+            class="fas fa-play"
+          />
+          <i
+            v-else
+            class="fas fa-pause"
             :class="{ 'fa-play': !playing, 'fa-pause': playing }"
           />
         </button>
@@ -62,7 +67,7 @@
               class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded mb-4"
               placeholder="Your comment here..."
             />
-            <ErrorMessage class="text-red-600" name="comment"/>
+            <ErrorMessage class="text-red-600" name="comment" />
             <button
               type="submit"
               class="py-1.5 px-3 rounded text-white bg-green-600 block"
@@ -139,11 +144,11 @@ export default {
   async mounted() {
     const docSnapshot = await songsCollection.doc(this.$route.params.id).get();
     if (!docSnapshot.exists) {
-      this.$router.push({name: "home"});
+      this.$router.push({ name: "home" });
       return;
     }
 
-    const {sort} = this.$route.query;
+    const { sort } = this.$route.query;
     this.sort = sort === "1" || sort === "2" ? sort : "1";
     this.song = docSnapshot.data();
     // console.log("tutaj:", this.song)
@@ -168,7 +173,7 @@ export default {
   },
   methods: {
     ...mapActions(usePlayerStore, ["newSong", "toggleAudio"]),
-    async postComment(values, {resetForm}) {
+    async postComment(values, { resetForm }) {
       this.comment_show_alert = true;
       this.comment_in_submission = true;
       this.comment_alert_variant = "bg-blue-500";
