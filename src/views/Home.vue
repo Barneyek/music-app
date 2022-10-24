@@ -42,6 +42,7 @@
         </ol>
         <!-- .. end Playlist -->
       </div>
+      <base-spinner class="justify-center mt-4" :loading="loading" />
     </section>
   </main>
 </template>
@@ -56,6 +57,7 @@ export default {
       songs: [],
       maxPerPage: 5,
       pendingRequest: false,
+      loading: false,
     };
   },
   components: {
@@ -85,32 +87,42 @@ export default {
         return;
       }
 
-      this.pendingRequest = true;
-      let snapshots;
+      let dbSize;
 
-      if (this.songs.length) {
-        const lastDoc = await songsCollection
-          .doc(this.songs[this.songs.length - 1].docID)
-          .get();
-        snapshots = await songsCollection
-          .orderBy("modified_name")
-          .startAfter(lastDoc)
-          .limit(this.maxPerPage)
-          .get();
-      } else {
-        snapshots = await songsCollection
-          .orderBy("modified_name")
-          .limit(this.maxPerPage)
-          .get();
-      }
-
-      snapshots.forEach((document) => {
-        this.songs.push({
-          docID: document.id,
-          ...document.data(),
-        });
+      await songsCollection.get().then((snap) => {
+        dbSize = snap.size;
       });
-      this.pendingRequest = false;
+
+      if (dbSize !== this.songs.length) {
+        this.loading = true;
+        this.pendingRequest = true;
+        let snapshots;
+
+        if (this.songs.length) {
+          const lastDoc = await songsCollection
+            .doc(this.songs[this.songs.length - 1].docID)
+            .get();
+          snapshots = await songsCollection
+            .orderBy("modified_name")
+            .startAfter(lastDoc)
+            .limit(this.maxPerPage)
+            .get();
+        } else {
+          snapshots = await songsCollection
+            .orderBy("modified_name")
+            .limit(this.maxPerPage)
+            .get();
+        }
+
+        snapshots.forEach((document) => {
+          this.songs.push({
+            docID: document.id,
+            ...document.data(),
+          });
+        });
+        this.pendingRequest = false;
+        this.loading = false;
+      }
     },
   },
 };

@@ -125,7 +125,6 @@ export default {
       comment_show_alert: false,
       comment_alert_variant: "bg-blue-500",
       comment_alert_msg: "Proszę czekać. Trwa dodawanie komentarza.",
-      flaga: 0,
     };
   },
   computed: {
@@ -155,10 +154,6 @@ export default {
     await this.getComments();
   },
   watch: {
-    // song(newValue) {
-    //   console.log("nowe", newValue.modified_name)
-    //
-    // },
     sort(newValue) {
       if (newValue === this.$route.query.sort) {
         return;
