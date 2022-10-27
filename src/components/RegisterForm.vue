@@ -13,29 +13,29 @@
   >
     <!-- Name -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Name</label>
+      <label class="inline-block mb-2">{{ $t("register.name") }}</label>
       <vee-field
         name="name"
         type="text"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="Enter Name"
+        :placeholder="$t('register.name_placeholder')"
       />
       <ErrorMessage class="text-red-600" name="name" />
     </div>
     <!-- Email -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Email</label>
+      <label class="inline-block mb-2">{{ $t("mail") }}</label>
       <vee-field
         name="email"
         type="email"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="Enter Email"
+        :placeholder="$t('mail_placeholder')"
       />
       <ErrorMessage class="text-red-600" name="email" />
     </div>
     <!-- Age -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Age</label>
+      <label class="inline-block mb-2">{{ $t("register.age") }}</label>
       <vee-field
         name="age"
         type="number"
@@ -45,12 +45,12 @@
     </div>
     <!-- Password -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Password</label>
+      <label class="inline-block mb-2">{{ $t("password") }}</label>
       <vee-field name="password" v-slot="{ field, errors }" :bails="false">
         <input
           type="password"
           class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-          placeholder="Password"
+          :placeholder="$t('password_placeholder')"
           v-bind="field"
         />
         <div v-for="error in errors" :key="error" class="text-red-600">
@@ -60,27 +60,26 @@
     </div>
     <!-- Confirm Password -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Confirm Password</label>
+      <label class="inline-block mb-2">{{ $t("register.confirm") }}</label>
       <vee-field
         name="confirm_password"
         type="password"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="Confirm Password"
+        :placeholder="$t('register.confirm_placeholder')"
       />
       <ErrorMessage class="text-red-600" name="confirm_password" />
     </div>
     <!-- Country -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Country</label>
+      <label class="inline-block mb-2">{{ $t("country") }}</label>
       <vee-field
         as="select"
         name="country"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       >
-        <option value="USA">USA</option>
-        <option value="Mexico">Mexico</option>
-        <option value="Germany">Germany</option>
-        <option value="Antarctica">Antarctica</option>
+        <option value="Poland">{{ $t("Poland") }}</option>
+        <option value="England">{{ $t("England") }}</option>
+        <option value="Germany">{{ $t("Germany") }}</option>
       </vee-field>
       <ErrorMessage class="text-red-600" name="country" />
     </div>
@@ -102,7 +101,7 @@
       class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
       :disabled="reg_in_submission"
     >
-      Submit
+      {{ $t("submit") }}
     </button>
   </vee-form>
 </template>
@@ -133,7 +132,17 @@ export default {
     };
   },
   name: "RegisterForm",
-  components: {},
+  computed: {
+    alertError() {
+      return this.$t("error");
+    },
+    alertRegistration() {
+      return this.$t("register.alert_register");
+    },
+    alertSuccess() {
+      return this.$t("register.alert_success");
+    },
+  },
   methods: {
     ...mapActions(useUserStore, {
       createUser: "register",
@@ -142,18 +151,18 @@ export default {
       this.reg_show_alert = true;
       this.reg_in_submission = true;
       this.reg_alert_variant = "bg-blue-500";
-      this.reg_alert_msg = "Proszę czekać! Twoje konto jest w trakcie rejestracji.";
+      this.reg_alert_msg = this.alertRegistration;
       try {
         this.createUser(values);
       } catch (error) {
         this.reg_in_submission = false;
         this.reg_alert_variant = "bg-red-500";
-        this.reg_alert_msg = "Wystąpił błąd. Proszę spróbować później";
+        this.reg_alert_msg = this.alertError;
         return;
       }
 
       this.reg_alert_variant = "bg-green-500";
-      this.reg_alert_msg = "Sukces! Twoje konto zostało utworzone.";
+      this.reg_alert_msg = this.alertSuccess;
     },
   },
 };

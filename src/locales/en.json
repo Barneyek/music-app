@@ -26,9 +26,24 @@
     "drop": "Drop your files here",
     "button": "or add music here"
   },
+  "auth": {
+    "title": "Create or Login to account"
+  },
   "register": {
+    "name": "Name",
+    "name_placeholder": "Enter Name",
+    "age": "Age",
+    "confirm": "Confirm password",
+    "confirm_placeholder": "Confirm password",
     "accept": "I accept Music`s {0}",
-    "tos": "Terms of Service"
+    "tos": "Terms of Service",
+    "alert_register": "Please wait! Your account is under registration.",
+    "alert_success": "Success! Your account has been created."
+  },
+  "login": {
+    "logged": "Logged in.",
+    "wrong_data": "Wrong data provided.",
+    "error": "Please wait! Your account is being logged in."
   },
   "manage": {
     "songs": "My music"
@@ -40,5 +55,15 @@
   "back": "Go back",
   "oldest": "Oldest",
   "latest": "Latest",
-  "error": "Something went wrong."
+  "error": "Something went wrong.",
+  "login": "Login",
+  "register": "Register",
+  "mail": "Mail",
+  "mail_placeholder": "Enter Email here...",
+  "password": "Password",
+  "password_placeholder": "Write password here...",
+  "country": "Country",
+  "Poland": "Polska",
+  "England": "Anglia",
+  "Germany": "Niemcy"
 }

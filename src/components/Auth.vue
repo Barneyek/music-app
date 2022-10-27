@@ -12,7 +12,7 @@
           <div class="absolute inset-0 bg-gray-800 opacity-75"></div>
         </div>
 
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203; </span>
 
         <div
           class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
@@ -21,7 +21,7 @@
           <div class="py-4 text-left px-6">
             <!--Title-->
             <div class="flex justify-between items-center pb-4">
-              <p class="text-2xl font-bold">Your Account</p>
+              <p class="text-2xl font-bold">{{ $t("auth.title") }}</p>
               <!-- Modal Close Button -->
               <div
                 class="modal-close cursor-pointer z-50"
@@ -42,7 +42,7 @@
                   }"
                   href="#"
                   @click.prevent="tab = 'login'"
-                  >Login</a
+                  >{{ $t("login.login") }}</a
                 >
               </li>
               <li class="flex-auto text-center">
@@ -54,7 +54,7 @@
                     'hover:text-blue-600': tab === 'login',
                   }"
                   @click.prevent="tab = 'register'"
-                  >Register</a
+                  >{{ $t("register.register") }}</a
                 >
               </li>
             </ul>

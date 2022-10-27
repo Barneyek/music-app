@@ -26,9 +26,26 @@
     "drop": "Umieść pliki tutaj",
     "button": "lub dodaj utwór tutaj"
   },
+  "auth": {
+    "title": "Stwórz konto lub zaloguj się"
+  },
   "register": {
+    "register": "Rejestracja",
+    "name": "Imię",
+    "name_placeholder": "Podaj swoje Imię...",
+    "age": "Wiek",
+    "confirm": "Potwierdź hasło",
+    "confirm_placeholder": "Potwierdź hasło tutaj...",
     "accept": "Akceptuję {0} serwisu Muzyka",
-    "tos": "warunki korzystania z usług "
+    "tos": "warunki korzystania z usług",
+    "alert_register": "Proszę czekać! Twoje konto jest w trakcie rejestracji.",
+    "alert_success": "Sukces! Twoje konto zostało utworzone."
+  },
+  "login": {
+    "login": "Zaloguj",
+    "logged": "Zalogowano.",
+    "wrong_data": "Podano złe dane.",
+    "error": "Proszę czekać! Twoje konto jest w trakcie logowania."
   },
   "manage": {
     "songs": "Moja muzyka"
@@ -40,5 +57,14 @@
   "back": "Wstecz",
   "oldest": "Najnowsze",
   "latest": "Najstarsze",
-  "error": "Coś poszło nie tak. Spróbuj później."
+  "error": "Coś poszło nie tak. Spróbuj później.",
+
+  "mail": "Email",
+  "mail_placeholder": "Podaj swój adres e-mail...",
+  "password": "Hasło",
+  "password_placeholder": "Podaj hasło...",
+  "country": "Państwo",
+  "Poland": "Poland",
+  "England": "England",
+  "Germany": "Germany"
 }
