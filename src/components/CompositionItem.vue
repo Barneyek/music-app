@@ -29,47 +29,53 @@
         @submit="edit"
       >
         <div class="mb-3">
-          <label class="inline-block mb-2">Song Title</label>
+          <label class="inline-block mb-2">{{
+            $t("song.composition_title")
+          }}</label>
           <vee-field
             name="modified_name"
             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-            placeholder="Enter Song Title"
+            :placeholder="$t('song.composition_title_placeholder')"
             @input="updateUnsavedFlag(true)"
           />
           <ErrorMessage class="text-red-600" name="modified_name" />
         </div>
         <div class="mb-3">
-          <label class="inline-block mb-2">Genre</label>
+          <label class="inline-block mb-2">{{
+            $t("song.composition_genre")
+          }}</label>
           <vee-field
             name="genre"
             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-            placeholder="Enter Genre"
+            :placeholder="$t('song.composition_genre_placeholder')"
             @input="updateUnsavedFlag(true)"
           />
           <ErrorMessage class="text-red-600" name="genre" />
         </div>
-        <button
-          type="submit"
-          class="py-1.5 px-3 rounded text-white bg-green-600"
-          :disabled="in_submission"
-        >
-          Submit
-        </button>
-        <button
-          type="button"
-          class="py-1.5 px-3 rounded text-white bg-gray-600"
-          :disabled="in_submission"
-          @click.prevent="showForm = false"
-        >
-          Go Back
-        </button>
+        <div class="flex justify-end gap-x-2">
+          <button
+            type="button"
+            class="py-1.5 px-3 rounded text-white bg-gray-600"
+            :disabled="in_submission"
+            @click.prevent="showForm = false"
+          >
+            {{ $t("back") }}
+          </button>
+          <button
+            type="submit"
+            class="py-1.5 px-3 rounded text-white bg-green-600"
+            :disabled="in_submission"
+          >
+            {{ $t("submit") }}
+          </button>
+        </div>
       </vee-form>
     </div>
   </div>
 </template>
 
 <script>
-import { songsCollection } from "@/includes/firebase";
+import { songsCollection, storage } from "@/includes/firebase";
 
 export default {
   name: "CompositionItem",
@@ -111,18 +117,29 @@ export default {
       alert_message: "Trwa aktualizowanie informacji.",
     };
   },
+  computed: {
+    alertUpdating() {
+      return this.$t("song.update_msg");
+    },
+    alertUpdated() {
+      return this.$t("song.updated");
+    },
+    alertError() {
+      return this.$t("error");
+    },
+  },
   methods: {
     async edit(values) {
       this.in_submission = true;
       this.show_alert = true;
       this.alert_variant = "bg-blue-500";
-      this.alert_message = "Trwa aktualizowanie informacji.";
+      this.alert_message = this.alertUpdating;
       try {
         await songsCollection.doc(this.song.docID).update(values);
       } catch (e) {
         this.in_submission = false;
         this.alert_variant = "bg-red-500";
-        this.alert_message = "Coś poszło nie tak. Spróbuj później.";
+        this.alert_message = this.alertError;
         return;
       }
       this.in_submission = false;
@@ -130,12 +147,13 @@ export default {
       this.updateUnsavedFlag(false);
 
       this.alert_variant = "bg-blue-500";
-      this.alert_message = "Zaktualizowano dane.";
+      this.alert_message = this.alertUpdated;
       this.show_alert = false;
+      this.showForm = false;
     },
     async deleteSong() {
-      const storage = storage.ref();
-      const songRef = storage.ref.child(`songs/${this.song.original_name}`);
+      const storageRef = storage.ref();
+      const songRef = storageRef.child(`songs/${this.song.original_name}`);
 
       await songRef.delete();
 

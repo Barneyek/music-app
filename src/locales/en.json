@@ -1,12 +1,44 @@
 {
+  "header": {
+    "logo": "MusicApp",
+    "about": "About",
+    "login": "Login / Register",
+    "logout": "Logout",
+    "manage": "Manage"
+  },
   "home": {
-    "listen": "Listen to Great Music!"
+    "listen": "Add and listen to your favorite music!",
+    "info": "The application was created for the needs of my study. Currently, user can publish, edit and delete music, and listen to music posted by other users. I try the application in my spare time.",
+    "songs": "All Songs:"
   },
   "song": {
-    "comment_count": "{count} comments"
+    "comment_count": "{count} comments",
+    "comment_placeholder": "Your comment here...",
+    "composition_title": "Song Title",
+    "composition_genre": "Genre",
+    "composition_title_placeholder": "Enter Song Title",
+    "composition_genre_placeholder": "Enter Genre",
+    "update_msg": "Updating is in progress.",
+    "updated": "Updated."
+  },
+  "upload": {
+    "upload": "Upload",
+    "drop": "Drop your files here",
+    "button": "or add music here"
   },
   "register": {
     "accept": "I accept Music`s {0}",
     "tos": "Terms of Service"
-  }
+  },
+  "manage": {
+    "songs": "My music"
+  },
+  "about": {
+    "description": "Still in progress..."
+  },
+  "submit": "Submit",
+  "back": "Go back",
+  "oldest": "Oldest",
+  "latest": "Latest",
+  "error": "Something went wrong."
 }

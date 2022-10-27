@@ -1,12 +1,44 @@
 {
+  "header": {
+    "logo": "MusicApp",
+    "about": "O aplikacji",
+    "login": "Zaloguj / Rejestracja",
+    "logout": "Wyloguj",
+    "manage": "Zarządzaj"
+  },
   "home": {
-    "listen": "Posłuchaj świetnej muzyki!"
+    "listen": "Dodaj i słuchaj swojej ulubionej muzyki!",
+    "info": "Aplikacja stworzona została na potrzeby mojej nauki. Obecnie możesz dodawać, edytować i słuchać muzyki, którą opublikujesz oraz innych użytkowników. Aplikację staram się w wolnych chwilach rozwijać.",
+    "songs": "Wszystkie utwory:"
   },
   "song": {
-    "comment_count": "brak komentarzy | {count} komentarz | {count} komentarze | {count} komentarzy"
+    "comment_count": "brak komentarzy | {count} komentarz | {count} komentarze | {count} komentarzy",
+    "comment_placeholder": "Tutaj wpisz swój komentarz...",
+    "composition_title": "Tytuł utworu",
+    "composition_genre": "Rodzaj muzyki",
+    "composition_title_placeholder": "Wpisz tytuł utworu",
+    "composition_genre_placeholder": "Wpisz rodzaj muzyki",
+    "update_msg": "Trwa aktualizowanie informacji.",
+    "updated": "Zaktualizowano dane."
+  },
+  "upload": {
+    "upload": "Dodaj utwór",
+    "drop": "Umieść pliki tutaj",
+    "button": "lub dodaj utwór tutaj"
   },
   "register": {
     "accept": "Akceptuję {0} serwisu Muzyka",
     "tos": "warunki korzystania z usług "
-  }
+  },
+  "manage": {
+    "songs": "Moja muzyka"
+  },
+  "about": {
+    "description": "W trakcie prac..."
+  },
+  "submit": "Zatwierdź",
+  "back": "Wstecz",
+  "oldest": "Najnowsze",
+  "latest": "Najstarsze",
+  "error": "Coś poszło nie tak. Spróbuj później."
 }
